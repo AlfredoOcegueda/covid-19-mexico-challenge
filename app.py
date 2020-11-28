@@ -25,31 +25,48 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     #Mars = mongo.db.Mars.find_one()
-    session = Session(engine)
-    results = session.query(Covid.State).all()
-    session.close()
 
-    states = list(np.ravel(results))
-
-    print(states)
-    return render_template("index.html")#, mars=Mars)
+    return render_template("index.html", states = states)
 
 
 @app.route("/mexico")
 def mexico():
-    return render_template("mexico.html")
-    # Mars = mongo.db.Mars
-    # Mars_Dict = scrape_mars.scrape()
-    # Mars.update({}, Mars_Dict, upsert=True)
-    # return redirect("/", code=302)
+    # Visualize confirmed cases in a heatmap of the country
+    session = Session(engine)
+    results = session.query(func.sum(Covid.Confirmed)).all()
+    # results2 = session.query(Covid.Negatives).count()
+    # results3 = session.query(Covid)
+    session.close()
+
+    confirmed_cases = list(np.ravel(results))
+
+    print(confirmed_cases)
+
+    return render_template("mexico.html", confirmed = confirmed_cases)
+
 
 @app.route("/states")
 def states():
-    return render_template("states.html")
+    session = Session(engine)
+    results = session.query(Covid.State, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths).all()
+    session.close()
+    print(results)
 
-# @app.rpute("/states/stateid")
-# def stateid():
-#     return 
+    all_states = []
+    for state, confirmed, negatives, suspicious, deaths in results:
+        state_dict = {}
+        state_dict["state"] = state
+        state_dict["confirmed"] = confirmed
+        state_dict["negatives"] = negatives
+        state_dict["suspicious"] = suspicious
+        state_dict["deaths"] = deaths
+        all_states.append(state_dict)
+
+    print(all_states)
+    #jsonify(all_states)    
+
+    return render_template("states.html", states = all_states)
+
 
 @app.route("/comparison")
 def comparison():
