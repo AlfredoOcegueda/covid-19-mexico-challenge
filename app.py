@@ -1,17 +1,37 @@
-from flask import Flask, render_template, redirect
-#from flask_pymongo import PyMongo
-#import scrape_mars
+import numpy as np
+import sqlalchemy
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine, func
+
+from flask import Flask, render_template, redirect, jsonify
+
+# Setup of db
+engine = create_engine("sqlite:///covid_db.sqlite")
+
+Base = automap_base()
+
+Base.prepare(engine, reflect=True)
+
+
+Covid = Base.classes.covid_mexico
+
+#Setup of Flask
 
 app = Flask(__name__)
 
-# Use flask_pymongo to set up mongo connection
-#app.config["MONGO_URI"] = "mongodb://localhost:27017/mars_app"
-#mongo = PyMongo(app)
 
 
 @app.route("/")
 def index():
     #Mars = mongo.db.Mars.find_one()
+    session = Session(engine)
+    results = session.query(Covid.State).all()
+    session.close()
+
+    states = list(np.ravel(results))
+
+    print(states)
     return render_template("index.html")#, mars=Mars)
 
 
@@ -26,6 +46,10 @@ def mexico():
 @app.route("/states")
 def states():
     return render_template("states.html")
+
+# @app.rpute("/states/stateid")
+# def stateid():
+#     return 
 
 @app.route("/comparison")
 def comparison():
