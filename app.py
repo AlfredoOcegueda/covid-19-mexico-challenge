@@ -1,4 +1,5 @@
 import numpy as np
+import json
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -47,8 +48,9 @@ def mexico():
 
 @app.route("/states")
 def states():
+
     session = Session(engine)
-    results = session.query(Covid.State, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths).all()
+    results = session.query(Covid.State, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths).filter(Covid.State == 1)
     session.close()
     print(results)
 
@@ -62,11 +64,30 @@ def states():
         state_dict["deaths"] = deaths
         all_states.append(state_dict)
 
-    print(all_states)
+
+    return render_template("states.html", states=all_states)
+
+@app.route("/states/<state_id>")
+def states_info(state_id):
+    session = Session(engine)
+    results = session.query(Covid.State, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths).filter(Covid.State == int(state_id))
+    session.close()
+    print(results)
+
+    filtered_states = []
+    for state, confirmed, negatives, suspicious, deaths in results:
+        state_dict = {}
+        state_dict["state"] = state
+        state_dict["confirmed"] = confirmed
+        state_dict["negatives"] = negatives
+        state_dict["suspicious"] = suspicious
+        state_dict["deaths"] = deaths
+        filtered_states.append(state_dict)
+
+    print(filtered_states)
     #jsonify(all_states)    
 
-    return render_template("states.html", states = all_states)
-
+    return jsonify (filtered_states)
 
 @app.route("/comparison")
 def comparison():
