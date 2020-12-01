@@ -1,12 +1,41 @@
 {% extends "base.html" %}
 {% block title %}States{% endblock %}
 {% block content %}
-    <div class="jumbotron text-center">
-      <h1>Hi</h1>
+<div class="row">
+  <div class="col-md-12 jumbotron text-center">
+    <h1>Mexico COVID-19 Dashboard</h1>
+    <p>Coronavirus pandemic summary by state</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <div class="well">
+      <h5>States</h5>
+      <hr>
+      <p>Select the state you are interested in.</p>
+      <select id="selDataset" onchange="optionChanged(this.value)"></select>
     </div>
-    <div class="row">
-      <div class="col-md-7">
-        <p>{{states}}</p>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Demographic Info</h3>
       </div>
+      <div id="sample-metadata" class="panel-body"></div>
     </div>
+  </div>
+  <div class="col-md-5">
+    <div id="bar"></div>
+  </div>
+  <div class="col-md-5">
+    <div id="gauge"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div id="bubble"></div>
+  </div>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
 {% endblock %}

@@ -52,12 +52,12 @@ def mexico():
 def states():
 
     session = Session(engine)
-    results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths).filter((Covid.State_ID == States.State_ID) & (Covid.State_ID == 1))
+    results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths, States.Latitude, States.Longitude).filter((Covid.State_ID == States.State_ID) & (Covid.State_ID == 1))
     session.close()
     print(results)
 
-    all_states = []
-    for state, statename, confirmed, negatives, suspicious, deaths in results:
+    state2 = []
+    for state, statename, confirmed, negatives, suspicious, deaths, latitude, longitude in results:
         state_dict = {}
         state_dict["state"] = state
         state_dict["state_name"] = statename
@@ -65,20 +65,22 @@ def states():
         state_dict["negatives"] = negatives
         state_dict["suspicious"] = suspicious
         state_dict["deaths"] = deaths
-        all_states.append(state_dict)
+        state_dict["latitude"] = latitude
+        state_dict["longitude"] = longitude
+        state2.append(state_dict)
 
 
-    return render_template("states.html", states=all_states)
+    return render_template("states.html", states=state)
 
 @app.route("/states/<state_id>")
 def states_info(state_id):
     session = Session(engine)
-    results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths).filter((Covid.State_ID == States.State_ID) & (Covid.State_ID == state_id))
+    results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths, States.Latitude, States.Longitude).filter((Covid.State_ID == States.State_ID) & (Covid.State_ID == state_id))
     session.close()
     print(results)
 
     filtered_states = []
-    for state, statename,confirmed, negatives, suspicious, deaths in results:
+    for state, statename, confirmed, negatives, suspicious, deaths, latitude, longitude in results:
         state_dict = {}
         state_dict["state"] = state
         state_dict["state_name"] = statename
@@ -86,12 +88,39 @@ def states_info(state_id):
         state_dict["negatives"] = negatives
         state_dict["suspicious"] = suspicious
         state_dict["deaths"] = deaths
+        state_dict["latitude"] = latitude
+        state_dict["longitude"] = longitude
         filtered_states.append(state_dict)
 
     print(filtered_states)
     #jsonify(all_states)    
 
     return jsonify (filtered_states)
+
+@app.route("/states/all")
+def states_all():
+    session = Session(engine)
+    results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths, States.Latitude, States.Longitude).all()
+    session.close()
+    print(results)
+
+    all_states = []
+    for state, statename, confirmed, negatives, suspicious, deaths, latitude, longitude in results:
+        state_dict = {}
+        state_dict["state"] = state
+        state_dict["state_name"] = statename
+        state_dict["confirmed"] = confirmed
+        state_dict["negatives"] = negatives
+        state_dict["suspicious"] = suspicious
+        state_dict["deaths"] = deaths
+        state_dict["latitude"] = latitude
+        state_dict["longitude"] = longitude
+        all_states.append(state_dict)
+
+    print(all_states)
+    #jsonify(all_states)    
+
+    return jsonify (all_states)
 
 @app.route("/comparison")
 def comparison():
