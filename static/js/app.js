@@ -1,8 +1,20 @@
-function buildData() {
+console.log("si funciona")
+
+d3.json("http://127.0.0.1:5000/states/all").then(function(data) {
+    console.log("si funciona")
+    console.log(data);
+    });
+
+/*d3.request("http://127.0.0.1:5000/states/all").mimeType("application/json").response(function(data) {
+    console.log("si funciona")
+    console.log(data);
+    }); */
+
+function buildData(data) {
 
     d3.json('/states/all', function(data) {
-    console.log("si funciona")
-      console.log(data);
+        console.log("si funciona")
+        console.log(data);
 
       var filteredData = data.filter(s => s.State)[0];
       console.log(filteredData);
@@ -18,7 +30,7 @@ function buildData() {
 }
 
 function buildCharts(){
-  d3.csv("data.csv").then((data) => {
+    d3.json('/states/all', function(data) {
     var dates = data.Dates;
     var positives = data.Positives;
     var states = data.State;
@@ -51,7 +63,7 @@ function buildCharts(){
   
     Plotly.newPlot('gauge', barchart); 
 
-    Plotly.d3.csv('data2.csv', function(err, rows){
+    Plotly.d3.json('/states/all', function(data) {
       function unpack(rows, key) {
           return rows.map(function(row) { return row[key]; });
       }
@@ -99,7 +111,7 @@ function buildCharts(){
 }
 
 function initFunction(){
-  d3.csv("data.csv").then((data) => {
+    d3.json('/states/all', function(data) {
         var selection = d3.select("#selDataset");
         Object.entries(data).forEach(([index,value]) => {
             selection.append("option").text(value);
@@ -115,4 +127,3 @@ function optionChanged(sample){
 }
 
 //initFunction();
-buildData();
