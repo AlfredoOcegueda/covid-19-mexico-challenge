@@ -35,6 +35,10 @@ def states():
     results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths, States.Latitude, States.Longitude).filter((Covid.State_ID == States.State_ID) & (Covid.State_ID == 1))
     session.close()
     print(results)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4fc7a36786f7d5ccc0f5416501c26c1e35ab5cb0
     state2 = []
     for state, statename, confirmed, negatives, suspicious, deaths, latitude, longitude in results:
         state_dict = {}
@@ -47,7 +51,14 @@ def states():
         state_dict["latitude"] = latitude
         state_dict["longitude"] = longitude
         state2.append(state_dict)
+<<<<<<< HEAD
     return render_template("states.html", states=state)
+=======
+
+
+    return render_template("states.html", states=state)
+
+>>>>>>> 4fc7a36786f7d5ccc0f5416501c26c1e35ab5cb0
 @app.route("/states/<state_id>")
 def states_info(state_id):
     session = Session(engine)
@@ -69,12 +80,20 @@ def states_info(state_id):
     print(filtered_states)
     #jsonify(all_states)    
     return jsonify (filtered_states)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4fc7a36786f7d5ccc0f5416501c26c1e35ab5cb0
 @app.route("/states/all")
 def states_all():
     session = Session(engine)
     results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths, States.Latitude, States.Longitude).all()
     session.close()
     print(results)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4fc7a36786f7d5ccc0f5416501c26c1e35ab5cb0
     all_states = []
     for state, statename, confirmed, negatives, suspicious, deaths, latitude, longitude in results:
         state_dict = {}
@@ -87,9 +106,18 @@ def states_all():
         state_dict["latitude"] = latitude
         state_dict["longitude"] = longitude
         all_states.append(state_dict)
+<<<<<<< HEAD
     print(all_states)
     #jsonify(all_states)    
     return jsonify (all_states)
+=======
+
+    print(all_states)
+    #jsonify(all_states)    
+
+    return jsonify (all_states)
+
+>>>>>>> 4fc7a36786f7d5ccc0f5416501c26c1e35ab5cb0
 @app.route("/comparison")
 def comparison():
     return render_template("comparison.html")
