@@ -1,8 +1,33 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-    <div class="jumbotron text-center">
-      <h1>COVID-19</h1>
-      <p><a class="btn btn-primary btn-lg" href="/mexico" role="button">Go!</a></p>
+  <div>
+    <div class="row">
+      <div class= "col-md-12">
+        <h1>COVID-19 Pandemic</h1>
+        <p>How the virus is affecting Mexico.</p>
+        <hr>
+        <img class="rounded float-right" src="{{ url_for('static', filename='covidMX.jpg') }}" alt="mexicoimage" width="60%">
+        <p class="text-justify">
+          bla bla bla
+        </p>
+        &nbsp;
+        <p class="text-justify">
+          bla bla bla
+        </p>
+      </div>
     </div>
+    &nbsp;
+    <div class= "row">
+      <div class="col-md-12">
+        <p class="text-justify">
+          As a team, we wanted to analyze the data given by the government and by CONACYT to visualize how our country is doing with the COVID-19 pandemic.
+        </p>
+        <p class="text-justify">
+          To accomplish this, we decided to 
+        </p>
+      </div>
+
+    </div>
+  </div>
 {% endblock %}
