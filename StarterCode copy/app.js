@@ -1,5 +1,7 @@
-function buildData(data) {
-    d3.csv("data.csv").then((data) => {
+function buildData() {
+
+    d3.json('/states/all', function(data) {
+    console.log("si funciona")
       console.log(data);
 
       var filteredData = data.filter(s => s.State)[0];
@@ -98,7 +100,6 @@ function buildCharts(){
 
 function initFunction(){
   d3.csv("data.csv").then((data) => {
-        console.log(data);
         var selection = d3.select("#selDataset");
         Object.entries(data).forEach(([index,value]) => {
             selection.append("option").text(value);
@@ -113,4 +114,5 @@ function optionChanged(sample){
     buildData(sample);
 }
 
-initFunction();
+//initFunction();
+buildData();
