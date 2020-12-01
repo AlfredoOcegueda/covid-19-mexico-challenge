@@ -8,7 +8,7 @@ from sqlalchemy import create_engine, func
 from flask import Flask, render_template, redirect, jsonify
 
 # Setup of db
-engine = create_engine("sqlite:///covid_db.sqlite")
+engine = create_engine("sqlite:///Data/covid_db.sqlite")
 
 Base = automap_base()
 
@@ -16,6 +16,8 @@ Base.prepare(engine, reflect=True)
 
 
 Covid = Base.classes.covid_mexico
+States = Base.classes.states_info
+#Ages = Base.classes.ages_distribution
 
 #Setup of Flask
 
@@ -50,14 +52,15 @@ def mexico():
 def states():
 
     session = Session(engine)
-    results = session.query(Covid.State, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths).filter(Covid.State == 1)
+    results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths).filter((Covid.State_ID == States.State_ID) & (Covid.State_ID == 1))
     session.close()
     print(results)
 
     all_states = []
-    for state, confirmed, negatives, suspicious, deaths in results:
+    for state, statename, confirmed, negatives, suspicious, deaths in results:
         state_dict = {}
         state_dict["state"] = state
+        state_dict["state_name"] = statename
         state_dict["confirmed"] = confirmed
         state_dict["negatives"] = negatives
         state_dict["suspicious"] = suspicious
@@ -70,14 +73,15 @@ def states():
 @app.route("/states/<state_id>")
 def states_info(state_id):
     session = Session(engine)
-    results = session.query(Covid.State, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths).filter(Covid.State == int(state_id))
+    results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths).filter((Covid.State_ID == States.State_ID) & (Covid.State_ID == state_id))
     session.close()
     print(results)
 
     filtered_states = []
-    for state, confirmed, negatives, suspicious, deaths in results:
+    for state, statename,confirmed, negatives, suspicious, deaths in results:
         state_dict = {}
         state_dict["state"] = state
+        state_dict["state_name"] = statename
         state_dict["confirmed"] = confirmed
         state_dict["negatives"] = negatives
         state_dict["suspicious"] = suspicious
