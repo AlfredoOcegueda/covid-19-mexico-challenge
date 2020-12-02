@@ -1,10 +1,24 @@
 {% extends "base.html" %}
 {% block title %}National{% endblock %}
 {% block content %}
-<div class="container fluid">
-    <div class="jumbotron text-center">
-      <h1>Hi</h1>
-      <h2>{{confirmed[0]}}</h2>
+<div>
+  <div class="row">
+    <div class="col-md-12">
+      <h1>National View</h1>
+      <hr>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div id="map"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p class="text-justfy">
+        Explanation of map.
+      </p>
+    </div>
+  </div>
+</div>
 {% endblock %}
