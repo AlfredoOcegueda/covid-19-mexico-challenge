@@ -1,22 +1,15 @@
-console.log("si funciona")
-
 d3.json("http://127.0.0.1:5000/states/all").then(function(data) {
     console.log("si funciona")
     console.log(data);
     });
 
-/*d3.request("http://127.0.0.1:5000/states/all").mimeType("application/json").response(function(data) {
-    console.log("si funciona")
-    console.log(data);
-    }); */
+function buildData(state) {
 
-function buildData(data) {
-
-    d3.json('/states/all', function(data) {
+    d3.json("/states/all").then(data => {
         console.log("si funciona")
         console.log(data);
 
-      var filteredData = data.filter(s => s.State)[0];
+      var filteredData = data.filter(s => s.state_name == state)[0];
       console.log(filteredData);
       
       var sample_metadata = d3.select("#sample-metadata");
@@ -29,8 +22,8 @@ function buildData(data) {
     });
 }
 
-function buildCharts(){
-    d3.json('/states/all', function(data) {
+function buildCharts(data){
+    /*d3.json('/states/all', function(data) {
     var dates = data.Dates;
     var positives = data.Positives;
     var states = data.State;
@@ -52,70 +45,44 @@ function buildCharts(){
     };
 
     Plotly.newPlot('bar', scatterData, layout);
-  });
+  });*/
 
     var barchart = [{
         type: 'bar',
-        x: [20, 14, 23],
-        y: ['giraffes', 'orangutans', 'monkeys'],
-        orientation: 'h'
+        x: data.map(e => e.confirmed),
+        y: data.map(e => e.state_name),
+        orientation: 'h',
+        color: 'rgb(142,124,195)'
     }];
-  
-    Plotly.newPlot('gauge', barchart); 
-
-    Plotly.d3.json('/states/all', function(data) {
-      function unpack(rows, key) {
-          return rows.map(function(row) { return row[key]; });
-      }
-
-      var data = [{
-          type: 'choropleth',
-          locationmode: 'MEXICO-states',
-          locations: unpack(rows, 'code'),
-          z: unpack(rows, 'Postives'),
-          text: unpack(rows, 'States'),
-          zmin: 0,
-          zmax: 17000,
-          colorscale: [
-              [0, 'rgb(242,240,247)'], [0.2, 'rgb(218,218,235)'],
-              [0.4, 'rgb(188,189,220)'], [0.6, 'rgb(158,154,200)'],
-              [0.8, 'rgb(117,107,177)'], [1, 'rgb(84,39,143)']
-          ],
-          colorbar: {
-              title: '# cases',
-              thickness: 0.2
-          },
-          marker: {
-              line:{
-                  color: 'rgb(255,255,255)',
-                  width: 2
-              }
-          }
-      }];
+    Plotly.newPlot('gauge', barchart);
 
 
-      var layout = {
-          title: 'COVID 19 cases by State',
-          geo:{
-              scope: 'mexico',
-              showlakes: true,
-              lakecolor: 'rgb(255,255,255)'
-          }
-      };
+      var data = [
+        {
+            type: "scattermapbox",
+            text: data.map(e => e.confirmed),
+            lon: data.map(e => e.longitude),
+            lat: data.map(e => e.latitude),
+            marker: { color: "red", size: data.map(e => e.confirmed)*0.2 }
+        }
+    ];
 
-      Plotly.newPlot("bubble", data, layout, {showLink: false});
-});
-
-
-
+    var layout = {
+        dragmode: "zoom",
+        mapbox: { style: "open-street-map", center: { lat: 25, lon: -95 }, zoom: 4 },
+        margin: { r: 0, t: 0, b: 0, l: 0 }
+    };
+      Plotly.newPlot("bubble", data, layout);
 }
 
 function initFunction(){
-    d3.json('/states/all', function(data) {
+    d3.json("/states/all").then(data => {
+        console.log(data);
         var selection = d3.select("#selDataset");
         Object.entries(data).forEach(([index,value]) => {
             selection.append("option").text(value);
         })
+
         buildCharts(data);
         buildData(data[0]);
     });
@@ -126,4 +93,4 @@ function optionChanged(sample){
     buildData(sample);
 }
 
-//initFunction();
+initFunction();
