@@ -63,7 +63,7 @@ function buildCharts(data){
             text: data.map(e => e.confirmed),
             lon: data.map(e => e.longitude),
             lat: data.map(e => e.latitude),
-            marker: { color: "red", size: data.map(e => e.confirmed)*0.2 }
+            marker: { color: "red", size: data.map(e => e.confirmed)*0.6}
         }
     ];
 
