@@ -88,7 +88,7 @@ def states_info(state_id):
 @app.route("/states/all")
 def states_all():
     session = Session(engine)
-    results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths, States.Latitude, States.Longitude).all()
+    results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths, States.Latitude, States.Longitude).filter(Covid.State_ID == States.State_ID).all()
     session.close()
     #print(results)
 
