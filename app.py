@@ -11,7 +11,9 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 Covid = Base.classes.covid_mexico
 States = Base.classes.states_info
+
 Ages = Base.classes.ages_distribution
+
 
 #Setup of Flask
 app = Flask(__name__)
@@ -29,7 +31,6 @@ def mexico():
     # results3 = session.query(Covid)
     session.close()
     confirmed_cases = list(np.ravel(results))
-
     #print(confirmed_cases)
 
     return render_template("mexico.html", confirmed = confirmed_cases)
@@ -62,7 +63,9 @@ def states_info(state_id):
     session = Session(engine)
     results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths, States.Latitude, States.Longitude).filter((Covid.State_ID == States.State_ID) & (Covid.State_ID == state_id))
     session.close()
+
     #print(results)
+
 
     filtered_states = []
     for state, statename, confirmed, negatives, suspicious, deaths, latitude, longitude in results:
@@ -98,7 +101,11 @@ def states_all():
         state_dict["deaths"] = deaths
         state_dict["latitude"] = latitude
         state_dict["longitude"] = longitude
-        all_states.append(state_dict) 
+        all_states.append(state_dict)
+
+    #print(all_states)
+    #jsonify(all_states)    
+
 
     return jsonify (all_states)
 
