@@ -1,15 +1,13 @@
 d3.json("http://127.0.0.1:5000/states/all").then(function(data) {
-    console.log("si funciona")
     console.log(data);
     });
 
 function buildData(state) {
 
     d3.json("/states/all").then(data => {
-        console.log("si funciona")
         console.log(data);
-
-      var filteredData = data.filter(s => s.state_name == state)[0];
+      console.log(state);
+      var filteredData = data.filter(s => s.state_name == state.state_name).map(s => s.confirmed);
       console.log(filteredData);
       
       var sample_metadata = d3.select("#sample-metadata");
@@ -22,57 +20,62 @@ function buildData(state) {
     });
 }
 
-function buildCharts(data){
-    /*d3.json('/states/all', function(data) {
-    var dates = data.Dates;
-    var positives = data.Positives;
-    var states = data.State;
-    console.log(states);
+function buildCharts(){
+  d3.json("/states/all").then(data => {
+    console.log(data);
 
-    var trace1 = {
-      x: dates,
-      y: positives,
-      text: states,
-      mode: 'markers',
-      name: 'Scatter'
-    };
+   var trace1 = {
+      x: data.map(e => e.state_name),
+      y: data.map(e => e.confirmed),
+      name: 'confirmed',
+      type: 'bar'
+   };
   
-    var scatterData = [trace1];
+   var trace2 = {
+      x: data.map(e => e.state_name),
+      y: data.map(e => e.negatives),
+      name: 'negatives',
+      type: 'bar'
+   };
+  
+   var trace3 = {
+    x: data.map(e => e.state_name),
+    y: data.map(e => e.deaths),
+    name: 'deaths',
+    type: 'bar'
+  };
 
-    var layout = {
-      title: 'TREND',
-      xaxis: { title: "Time"}, 
-    };
+  var trace4 = {
+    x: data.map(e => e.state_name),
+    y: data.map(e => e.suspicious),
+    name: 'nsuspicious',
+    type: 'bar'
+  };
 
-    Plotly.newPlot('bar', scatterData, layout);
-  });*/
+    var data = [trace1, trace2,trace3,trace4];
+  
+    var layout = {barmode: 'group'};
 
-    var barchart = [{
-        type: 'bar',
-        x: data.map(e => e.confirmed),
-        y: data.map(e => e.state_name),
-        orientation: 'h',
-        color: 'rgb(142,124,195)'
-    }];
-    Plotly.newPlot('gauge', barchart);
+    Plotly.newPlot('gauge', data, layout);
 
 
-      var data = [
-        {
-            type: "scattermapbox",
-            text: data.map(e => e.confirmed),
-            lon: data.map(e => e.longitude),
-            lat: data.map(e => e.latitude),
-            marker: { color: "red", size: data.map(e => e.confirmed)*0.6}
-        }
-    ];
+    var data = [
+      {
+          type: "scattermapbox",
+          text: data.map(e => e.confirmed),
+          lon: data.map(e => e.longitude),
+          lat: data.map(e => e.latitude),
+          marker: { color: "red", size: data.map(e => e.confirmed)*0.02}
+      }
+  ];
 
-    var layout = {
-        dragmode: "zoom",
-        mapbox: { style: "open-street-map", center: { lat: 25, lon: -95 }, zoom: 4 },
-        margin: { r: 0, t: 0, b: 0, l: 0 }
-    };
-      Plotly.newPlot("bubble", data, layout);
+  var layout = {
+      dragmode: "zoom",
+      mapbox: { style: "open-street-map", center: { lat: 25, lon: -95 }, zoom: 4 },
+      margin: { r: 0, t: 0, b: 0, l: 0 }
+  };
+    Plotly.newPlot("bubble", data, layout);
+});
 }
 
 function initFunction(){
@@ -80,17 +83,16 @@ function initFunction(){
         console.log(data);
         var selection = d3.select("#selDataset");
         Object.entries(data).forEach(([index,value]) => {
-            selection.append("option").text(value);
+            selection.append("option").text(value.state_name);
         })
-
-        buildCharts(data);
         buildData(data[0]);
     });
 }
 
 function optionChanged(sample){
-    buildCharts(sample);
+    console.log(sample)
     buildData(sample);
 }
 
 initFunction();
+buildCharts();
