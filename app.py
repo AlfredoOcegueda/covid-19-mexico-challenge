@@ -42,7 +42,6 @@ def states():
     session.close()
     #print(results)
 
-
     state2 = []
     for state, statename, confirmed, negatives, suspicious, deaths, latitude, longitude in results:
         state_dict = {}
@@ -91,7 +90,6 @@ def states_all():
     results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths, States.Latitude, States.Longitude).filter(Covid.State_ID == States.State_ID).all()
     session.close()
     #print(results)
-
     all_states = []
     for state, statename, confirmed, negatives, suspicious, deaths, latitude, longitude in results:
         state_dict = {}
