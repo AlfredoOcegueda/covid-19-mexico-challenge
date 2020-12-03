@@ -52,7 +52,7 @@ def mexico():
 def states():
 
     session = Session(engine)
-    results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths).filter((Covid.State_ID == States.State_ID) & (Covid.State_ID == 1))
+    results = session.query(Covid.State_ID, States.State_Name, Covid.Confirmed, Covid.Negatives, Covid.Suspicious, Covid.Deaths).filter((Covid.State_ID == States.State_ID) & (Covid.State_ID == 1)).filter(Covid.State_ID == States.State_ID).all()
     session.close()
     print(results)
 
