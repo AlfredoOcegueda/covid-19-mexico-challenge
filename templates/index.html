@@ -1,8 +1,76 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-    <div class="jumbotron text-center">
-      <h1>COVID-19</h1>
-      <p><a class="btn btn-primary btn-lg" href="/mexico" role="button">Go!</a></p>
+  <div>
+    <div class="row">
+      <div class= "col-md-12">
+        <h1>COVID-19 Pandemic</h1>
+        <p>How the virus is affecting Mexico.</p>
+        <hr>
+        <img class="rounded float-right" src="{{ url_for('static', filename='covidMX.jpg') }}" alt="mexicoimage" width="60%" style="vertical-align:middle;margin:0px 20px">
+        <p class="text-justify">
+          SARS-COV2 first appeared in China on December of 2019. So far it has become a worldwide pandemic as the disease we call COVID-19. Different
+          countries are applying contingency plans to mitigate the disease in their populations along with the recommendations we all have come to know:
+          <ul>
+            <li>Washing your hands frequently.</li>
+            <li>Maintain social distancing.</li>
+            <li>Avoid touching your face.</li>
+            <li>Respiratory hygiene.</li>
+          </ul>
+        </p>
+        <p class="text-justify">
+          The Mexican government, along with CONACYT, have compiled all kinds of data regarding how the disease has affected the populace.
+        </p>
+        <p class="text-justify">
+          As a team, we wanted to analyze the data given by the government and CONACYT using Python, Javascript, and SQL to visualize how our country is doing 
+          with the COVID-19 pandemic.
+        </p>
+      </div>
     </div>
+    <div class= "row">
+      <div class="col-md-12">
+        <p class="text-justify">
+          To accomplish this, we decided to make visualizations that would represent the data we obtained <strong>nationally</strong>, <strong>for each state</strong>, 
+          and we also thought it was relevant to <strong>compare</strong> each state. We particularly wanted to compare, between males, females and their specific age group,
+          how many confirmed cases there are in each state.
+        </p>
+        <p class="text-justify">
+          You can explore the previously mentioned visualizations by clicking on the different links in the navigation bar or by clicking on any of the buttons down below.
+        </p>
+        <hr>
+      </div>
+    </div>
+    <div class= "row">
+      <div class="col-md-4">
+        <div class="hero-unit">
+          <h4>National View</h4>
+          <p>
+            <a class="btn btn-dark btn-large" href="{{ url_for('mexico')}}">
+              Go!
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="hero-unit">
+          <h4>State View</h4>
+          <p>
+            <a class="btn btn-dark btn-large" href="{{ url_for('states')}}">
+              Go!
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="hero-unit">
+          <h4>Comparison</h4>
+          <p>
+            <a class="btn btn-dark btn-large" href="{{ url_for('comparison')}}">
+              Go!
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
