@@ -20,20 +20,17 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html", states = states)
+    return render_template("index.html")
 
 @app.route("/mexico")
 def mexico():
-    # Visualize confirmed cases in a heatmap of the country
-    session = Session(engine)
-    results = session.query(func.sum(Covid.Confirmed)).all()
-    # results2 = session.query(Covid.Negatives).count()
-    # results3 = session.query(Covid)
-    session.close()
-    confirmed_cases = list(np.ravel(results))
-    #print(confirmed_cases)
+    # # Visualize confirmed cases in a heatmap of the country
+    # session = Session(engine)
+    # results = session.query(func.sum(Covid.Confirmed)).all()
+    # session.close()
+    # #print(results)
 
-    return render_template("mexico.html", confirmed = confirmed_cases)
+    return render_template("mexico.html")
 
 @app.route("/states")
 def states():
