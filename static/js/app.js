@@ -24,7 +24,10 @@ function buildCharts(){
   d3.json("/states/all").then(data => {
     data = data.splice(0, data.length - 1);
     console.log(data);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9fe075c559c9cec2c2bda2c8b4b552ad030db707
    var trace1 = {
       x: data.map(e => e.state_name),
       y: data.map(e => e.confirmed),
@@ -44,6 +47,7 @@ function buildCharts(){
       y: data.map(e => e.deaths),
       name: 'Deaths',
       type: 'bar'
+<<<<<<< HEAD
     };
 
     var trace4 = {
@@ -66,13 +70,34 @@ function buildCharts(){
     Plotly.newPlot('gauge', data_trace, layout_bar);
 
 
+=======
+    };
+    var trace4 = {
+      x: data.map(e => e.state_name),
+      y: data.map(e => e.suspicious),
+      name: 'Suspicious',
+      type: 'bar'
+    };
+
+    var data_trace = [trace1, trace2,trace3,trace4];
+  
+    var layout_bar = {barmode: 'group'};
+
+    Plotly.newPlot('gauge', data_trace, layout_bar);
+
+
+>>>>>>> 9fe075c559c9cec2c2bda2c8b4b552ad030db707
     var data_map = [
       {
         type: "scattermapbox",
         text: data.map(e => e.confirmed),
         lon: data.map(e => e.longitude),
         lat: data.map(e => e.latitude),
+<<<<<<< HEAD
         marker: { color: "orange", size: 14}
+=======
+        marker: { color: "red", size: 15}
+>>>>>>> 9fe075c559c9cec2c2bda2c8b4b552ad030db707
      }
     ];
     console.log(data_map);
@@ -97,11 +122,13 @@ function initFunction(){
         buildData(data[0].state_name);
     });
 }
-
 function optionChanged(sample){
     console.log(sample)
     buildData(sample);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9fe075c559c9cec2c2bda2c8b4b552ad030db707
 initFunction();
 buildCharts();
