@@ -2,23 +2,19 @@
 {% block title %}Comparison{% endblock %}
 {% block content %}
 <div class="row">
-  <div class="container fluid">
-    <div class="jumbotron">
-      <h1>Comparison between Ages per States</h1>
-    </div>
-  </div>
-  </div>
-      <h5> Male vs Female ages</h5>
+  <div class="col-md-12">
+      <h1>Age Distribution</h1>
+      <h4>Select the states you want to compare.</h4>
+      <p>These visuals were made using amCharts.</p>
       <hr>
+  </div>
+
   <div class="row"> 
-  <div class="col-md-6">
+  <div class="col-md-6 ">
       <p>Select the state of your interest.</p>
       <select id="selDataset" onchange="optionChanged(this.value)"></select>
       <div id="chartdiv"></div>
   </div>
-
-  
- 
   <div class="col-md-6">
       <p>Select the state of your interest.</p>
       <select id="selDataset2" onchange="optionChanged2(this.value)"></select>

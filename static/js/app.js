@@ -57,7 +57,6 @@ function buildCharts(){
 
     Plotly.newPlot('gauge', data_trace, layout_bar);
 
-
     var data_map = [
       {
         type: "scattermapbox",
