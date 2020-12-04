@@ -84,7 +84,7 @@ d3.json("http://127.0.0.1:5000/ageall").then(function(data) {
       label.horizontalCenter = "middle";
       label.y = 0;
       label.showOnInit = true;
-      label.text = "Population pyramid";
+      //label.text = "Population pyramid";
       label.hiddenState.properties.dy = -100;  
     });
     
@@ -200,7 +200,7 @@ d3.json("http://127.0.0.1:5000/ageall").then(function(data) {
     label.horizontalCenter = "middle";
     label.y = 0;
     label.showOnInit = true;
-    label.text = newId + " Population pyramid";
+    //label.text = newId + " Population pyramid";
     label.hiddenState.properties.dy = -100;         
   });
   };
