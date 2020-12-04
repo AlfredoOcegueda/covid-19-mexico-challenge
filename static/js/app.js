@@ -24,7 +24,6 @@ function buildCharts(){
   d3.json("/states/all").then(data => {
     data = data.splice(0, data.length - 1);
     console.log(data);
-
    var trace1 = {
       x: data.map(e => e.state_name),
       y: data.map(e => e.confirmed),
@@ -45,7 +44,6 @@ function buildCharts(){
       name: 'Deaths',
       type: 'bar'
     };
-
     var trace4 = {
       x: data.map(e => e.state_name),
       y: data.map(e => e.suspicious),
@@ -91,11 +89,9 @@ function initFunction(){
         buildData(data[0].state_name);
     });
 }
-
 function optionChanged(sample){
     console.log(sample)
     buildData(sample);
 }
-
 initFunction();
 buildCharts();
