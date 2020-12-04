@@ -55,7 +55,13 @@ function buildCharts(){
 
     var data_trace = [trace1, trace2,trace3,trace4];
   
-    var layout_bar = {barmode: 'group'};
+    var layout_bar = {barmode: 'group', margin: {
+      l: 60,
+      r: 0,
+      b: 165,
+      t: 0,
+      pad: 4
+    }};
 
     Plotly.newPlot('gauge', data_trace, layout_bar);
 
@@ -66,7 +72,7 @@ function buildCharts(){
         text: data.map(e => e.confirmed),
         lon: data.map(e => e.longitude),
         lat: data.map(e => e.latitude),
-        marker: { color: "red", size: 15}
+        marker: { color: "orange", size: 14}
      }
     ];
     console.log(data_map);
