@@ -3,6 +3,10 @@
   height: 300px;
 }
 
+.main-svg {
+  height: 600px;
+}
+
 body {
   padding: 20;
   margin: 20;
@@ -78,6 +82,3 @@ html {
   height: 300px;
 }
 ​
-.main-svg {
-height: 600px;
-}
