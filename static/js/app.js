@@ -1,24 +1,23 @@
 d3.json("http://127.0.0.1:5000/states/all").then(function(data) {
     console.log(data);
-    });
+});
+
+
 
 function buildData(state) {
-
     d3.json("/states/all").then(data => {
       console.log(data);
       console.log(state);
       var filteredData = data.filter(s => s.state_name == state)[0];
       console.log(filteredData);
-      
       var sample_metadata = d3.select("#sample-metadata");
       sample_metadata.html("");
-
       Object.entries(filteredData).forEach((key) => {
         sample_metadata.append("h5").text(key[0].toUpperCase() + ": " + key[1] + "\n");  
 
         });
     });
-}
+};
 
 function buildCharts(){
   d3.json("/states/all").then(data => {
@@ -79,7 +78,7 @@ function buildCharts(){
     Plotly.newPlot("bubble", data_map, layout_map);
 
   });
-}
+};
 
 function initFunction(){
     d3.json("/states/all").then(data => {
@@ -90,12 +89,12 @@ function initFunction(){
         })
         buildData(data[0].state_name);
     });
-}
+};
 
 function optionChanged(sample){
     console.log(sample)
     buildData(sample);
-}
+};
 
 initFunction();
 buildCharts();
