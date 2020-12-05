@@ -2,15 +2,16 @@
 {% block title %}States{% endblock %}
 {% block content %}
 <div class="row">
-  <div class="col-md-12 jumbotron text-center">
+  <div class="col-md-12">
     <h1>Mexico COVID-19 Dashboard</h1>
-    <p>Coronavirus pandemic summary by state</p>
+    <p>Coronavirus pandemic summarized by state</p>
+    <hr>
   </div>
 </div>
 <div class="row">
   <div class="col-md-4">
     <div class="well">
-      <h5>States</h5>
+      <h4>States</h4>
       <hr>
       <p>Select the state you are interested in.</p>
       <select id="selDataset" onchange="optionChanged(this.value)"></select>
@@ -26,11 +27,12 @@
     <div id="gauge"></div>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-12">
-    <div id="bubble" style="vertical-align:middle;margin:90px 0px"></div>
+<div class="container fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="bubble" style="vertical-align:middle;margin:150px 0px"></div>
+    </div>
   </div>
-</div>
 </div>
 {% endblock %}
 {% block apps %}
