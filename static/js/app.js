@@ -1,4 +1,13 @@
-d3.json("http://127.0.0.1:5000/states/all").then(function(data) {
+var prod = 0;
+
+
+if (prod>0){
+var url = "https://alfredoocegueda-covid-19.herokuapp.com/"
+}else{
+  var url = "http://127.0.0.1:5000/"
+}
+
+d3.json("/states/all").then(function(data) {
     console.log(data);
     });
 

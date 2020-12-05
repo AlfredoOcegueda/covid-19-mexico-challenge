@@ -1,6 +1,6 @@
 var seedData;
 
-d3.json("http://127.0.0.1:5000/ageall").then(function(data) {
+d3.json("/ageall").then(function(data) {
     console.log(data);
     seedData = data;
 
@@ -107,6 +107,7 @@ d3.json("http://127.0.0.1:5000/ageall").then(function(data) {
     
   function optionChanged(newId){
       console.log(newId)
+      console.log(seedData[newId]);
       buildData(seedData[newId],"chartdiv");
       //Plot(seedData[newId],"chartdiv");
   };

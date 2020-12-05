@@ -48,7 +48,7 @@ var map = L.map("map", {
     map.fitBounds(e.target.getBounds());
   }
   map.attributionControl.addAttribution('Mexico Covid cases &copy; <a href="https://datos.covid-19.conacyt.mx"> Conacyt</a>');
-  var w = "http://127.0.0.1:5000/states/all";
+  var w = "/states/all";
   d3.json(w,function(covid){
     var geoData = "static/data/mx_states.json";
     var prueba;
