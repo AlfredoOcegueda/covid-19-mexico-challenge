@@ -3,12 +3,7 @@ d3.json("http://127.0.0.1:5000/states/all").then(function(data) {
 });
 
 
-<<<<<<< HEAD
-
-function buildData(state) {
-=======
->>>>>>> dfd2247c2945e361bf7b9b1c6ae783fe9b253611
-    d3.json("/states/all").then(data => {
+d3.json("/states/all").then(data => {
       console.log(data);
       console.log(state);
       var filteredData = data.filter(s => s.state_name == state)[0];
@@ -19,17 +14,12 @@ function buildData(state) {
         sample_metadata.append("h5").text(key[0].toUpperCase() + ": " + key[1] + "\n");  
 
         });
-    });
-};
+});
 
 function buildCharts(){
   d3.json("/states/all").then(data => {
     data = data.splice(0, data.length - 1);
     console.log(data);
-<<<<<<< HEAD
-
-=======
->>>>>>> dfd2247c2945e361bf7b9b1c6ae783fe9b253611
    var trace1 = {
       x: data.map(e => e.state_name),
       y: data.map(e => e.confirmed),
@@ -50,10 +40,6 @@ function buildCharts(){
       name: 'Deaths',
       type: 'bar'
     };
-<<<<<<< HEAD
-
-=======
->>>>>>> dfd2247c2945e361bf7b9b1c6ae783fe9b253611
     var trace4 = {
       x: data.map(e => e.state_name),
       y: data.map(e => e.suspicious),
@@ -87,11 +73,7 @@ function buildCharts(){
     Plotly.newPlot("bubble", data_map, layout_map);
 
   });
-<<<<<<< HEAD
 };
-=======
-}
->>>>>>> dfd2247c2945e361bf7b9b1c6ae783fe9b253611
 
 function initFunction(){
     d3.json("/states/all").then(data => {
@@ -102,7 +84,6 @@ function initFunction(){
         })
         buildData(data[0].state_name);
     });
-<<<<<<< HEAD
 };
 
 function optionChanged(sample){
@@ -110,12 +91,5 @@ function optionChanged(sample){
     buildData(sample);
 };
 
-=======
-}
-function optionChanged(sample){
-    console.log(sample)
-    buildData(sample);
-}
->>>>>>> dfd2247c2945e361bf7b9b1c6ae783fe9b253611
 initFunction();
 buildCharts();
