@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
     padding: 20;
     margin: 20;
@@ -69,3 +70,18 @@ body {
   }
   
   
+=======
+#chartdiv {
+    width: 100%;
+    height: 300px;
+  }
+
+#chartdiv2 {
+    width: 100%;
+    height: 300px;
+  }
+
+.main-svg {
+  height: 600px;
+  }
+>>>>>>> dfd2247c2945e361bf7b9b1c6ae783fe9b253611
