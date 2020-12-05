@@ -3,14 +3,14 @@
 {% block content %}
 <div class="row">
   <div class="col-md-12">
-      <h1>Age Distribution: Confirmed Cases</h1>
-      <h4>Select the states you want to compare.</h4>
+      <h1>Age Distribution</h1>
+      <h5>Select the states you want to compare.</h5>
       <p>These visuals were made using amCharts.</p>
       <hr>
   </div>
 </div>
 
-  <div class="row"> 
+<div class="row"> 
   <div class="col-md-6 ">
       <p>Select the state of your interest.</p>
       <select id="selDataset" onchange="optionChanged(this.value)"></select>
@@ -21,7 +21,7 @@
       <select id="selDataset2" onchange="optionChanged2(this.value)"></select>
       <div id="chartdiv2"></div>
   </div>
-  </div>
+</div>
 
   <!-- Resources -->
   <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
